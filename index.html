@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Haziran Mucizesi - Denizhan Aras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background-color: #2b323c; 
+        }
+        
+        /* Sayfa Dokusu */
+        .book-paper {
+            background-color: #fdfaf4; 
+            background-image: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(0,0,0,0.015) 50%, rgba(255,255,255,0) 100%);
+        }
+        
+        /* Kitap Cilt Gölgelendirmesi (Masaüstü) */
+        .book-spine {
+            background: linear-gradient(to right, 
+                rgba(255,255,255,0) 0%, 
+                rgba(0,0,0,0.04) 40%, 
+                rgba(0,0,0,0.12) 50%, 
+                rgba(0,0,0,0.04) 60%, 
+                rgba(255,255,255,0) 100%);
+        }
+
+        /* İlk Harfi Büyütme (Drop Cap) */
+        .drop-cap::first-letter {
+            font-size: 3.2rem;
+            float: left;
+            margin-right: 0.6rem;
+            line-height: 1;
+            font-weight: bold;
+            color: #111827;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-6 lg:p-8 selection:bg-amber-100">
+
+    <div id="book-container" class="relative w-full max-w-5xl mx-auto flex flex-col md:flex-row shadow-2xl rounded-sm overflow-hidden book-paper text-gray-800 transition-all duration-300 min-h-[75vh] md:min-h-[80vh]">
+        
+        <div class="hidden md:block absolute inset-y-0 left-1/2 w-10 -ml-5 book-spine z-10 pointer-events-none"></div>
+
+        <div class="w-full md:w-1/2 p-8 md:p-12 lg:p-14 flex flex-col justify-between min-h-[70vh] md:min-h-0 border-r border-gray-100/50">
+            <div id="left-content" class="prose max-w-none">
+                </div>
+            <div id="left-page-num" class="text-center text-xs tracking-widest text-gray-400 mt-6 font-sans font-medium"></div>
+        </div>
+
+        <div class="hidden md:flex w-full md:w-1/2 p-8 md:p-12 lg:p-14 flex flex-col justify-between min-h-[70vh] md:min-h-0" id="right-page-container">
+            <div id="right-content" class="prose max-w-none">
+                </div>
+            <div id="right-page-num" class="text-center text-xs tracking-widest text-gray-400 mt-6 font-sans font-medium"></div>
+        </div>
+
+    </div>
+
+    <div class="flex items-center gap-6 mt-6 bg-gray-900/40 px-4 py-2 rounded-full backdrop-blur-sm shadow-lg border border-gray-700/30">
+        <button id="prev-btn" class="p-2 text-amber-100/80 hover:text-white disabled:opacity-30 disabled:hover:text-amber-100/80 transition-all transform active:scale-95" onclick="changePage(-1)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" />
+            </svg>
+        </button>
+        
+        <span id="progress-indicator" class="text-xs font-sans tracking-widest text-amber-200/70 font-bold uppercase"></span>
+        
+        <button id="next-btn" class="p-2 text-amber-100/80 hover:text-white disabled:opacity-30 disabled:hover:text-amber-100/80 transition-all transform active:scale-95" onclick="changePage(1)">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </button>
+    </div>
+
+
+    <div id="story-data" class="hidden">
+        
+        <div class="page-data flex flex-col items-center justify-center text-center h-full py-4">
+            <div class="w-full max-w-xs mx-auto shadow-xl border border-gray-200 rounded-sm overflow-hidden bg-white mb-6">
+                <img src="kapak.jpg" alt="5 Haziran Mucizesi Kitap Kapağı" class="w-full h-auto object-cover">
+            </div>
+            <h1 class="text-3xl font-bold tracking-wide text-gray-950 mb-1">5 HAZİRAN MUCİZESİ</h1>
+            <p class="text-sm italic text-gray-600 mb-4 font-sans tracking-wide">Hayatımın aşkının hikayesi</p>
+            <div class="w-12 h-[1px] bg-gray-300 my-2 mx-auto"></div>
+            <p class="text-md font-medium text-gray-800 tracking-wider uppercase font-sans mt-2">Denizhan Aras</p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-xl font-bold text-center text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Önsöz</h2>
+            <h3 class="text-md font-bold text-gray-800 mb-4 italic">15:33'te Başlayan Mucize</h3>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                5 Haziran 1998… Saat tam 15:33’ü gösterdiğinde, dünyanın bir köşesinde çok sıradan görünen ama benim bütün hayatımı değiştirecek olan o mucizevi an yaşandı. Sen dünyaya gözlerini açtın. O gün, o saniyede, o küçücük kalbin bir gün benim dünyamın tam merkezi olacağını, adımlarının gün gelip beni bulacağını kimse bilmiyordu.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Zaman su gibi akıp geçti. Yıllar seni benimle karşılaştırmak, yollarımızı birleştirmek için adeta kusursuz bir plan yaptı. Birlikte kurduğumuz hayat, Estonya'nın serin ama bir o kadar da büyüleyici sokaklarında el ele yürürken hissettiğimiz o sıcaklık, dünyayı sırt sırta verip beraber keşfetmenin verdiği o tarifasız heyecan... Seninle geçen her gün, 1998'in o haziran öğleden sonrasında başlayan hikayenin en güzel satırları oldu.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Fakat bu hikayenin en büyüleyici, en derin bölümü, senin o sonsuz şefkatinle bir anneye dönüştüğün an yazıldı. Geçen yıl mayıs ayında Akay'ı kucağımıza aldığımızda gözlerinde gördüğüm o ışık, dünyaya geldiğin o ilk saniyedeki saf mucizenin bir yansıması gibiydi adeta. Yuvamız, şimdi oğlumuzun gülüşleriyle daha da aydınlanıyor. Sen sadece benim en büyük aşkım, sırdaşım değil; aynı zamanda Akay’ın dünyalar güzeli annesisin. İyi ki doğdun sevgilim.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Bölüm 1: Tofaş'ın Arka Koltuğunda Başlayan Mucize</h2>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                1998 yılının Haziran ayı... Yazın o tatlı sıcağı Denizli'nin sokaklarına yavaş yavaş inmeye başlarken, Şeniz ve Sezgin’in evinde tarifsiz bir telaş, havada kalpleri yerinden oynatacak türden bir heyecan vardı. Şeniz’in karnındaki o küçük mucize, artık sığındığı o güvenli limandan çıkıp dünyayla tanışmak, nefes almak için sabırsızlanıyordu.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Sezgin, içinde kopan fırtınaları, tarifsiz baba olma heyecanını ve o tatlı paniği gizlemeye çalışarak o emektar Tofaş'ın marşına bastı. O gün, o arabanın motor sesi belki de dünyanın en umut dolu senfonisiydi onlar için. Denizli'nin yollarından hastaneye doğru telaşla ilerlerken, Şeniz'in derin nefeslerine Sezgin'in duaları eşlik ediyordu. O Tofaş, sadece bir hastane yolculuğu yapmıyor; aslında benim dünyamı sonsuza dek değiştirecek olan o en güzel hediyeyi hayata taşıyordu.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Ve hastane koridorlarında zamanın adeta asılı kaldığı o bekleyiş, saatler tam <strong class="text-gray-900">15:33</strong>'ü vurduğunda yerini dünyanın en saf, en güzel melodisine bıraktı. Senin ilk ağlayışın... Şeniz'in yorgun ama bir o kadar da huzur ve aşk dolu gözleri, Sezgin'in o an dünyaları kucaklamışçasına çarpan kalbiyle buluştu. İkisi de hayatlarının en değerli varlığına, sana kavuşmuşlardı.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Sen Denizli'nin o ılık rüzgarıyla ciğerlerini ilk kez doldururken, kader senin için harika bir serüven hazırlıyordu. Hastane odasındaki o küçücük bedenin, çok geçmeden Babadağ'ın o samimi, sımsıcak mahalle aralarında koşup oynayacak bir çocuğa dönüşecekti.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                O gün, o Tofaş'ın arka koltuğunda hastaneden eve dönerken, Sezgin ve Şeniz kucaklarında sadece bir bebek değil, yıllar sonra benim hayatımın tam merkezi olacak kadını, geleceğimi ve en büyük aşkımı da taşıyorlardı. Benim kalbimin pusulası, o gün, saat 15:33'te, Denizli'de seninle birlikte atmaya başlamıştı.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Bölüm 2: Babadağ Sokaklarında Yankılanan Kahkahalar</h2>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Zaman, o minicik bebeği Babadağ'ın samimi ve sımsıcak sokaklarına neşe saçan bir çocuğa dönüştürmekte hiç gecikmedi. Pamuk gibi beyaz teni, rüzgarda savrulan o tatlı kıvırcık saçlarıyla sen, mahallenin adeta gözbebeğiydin. Kapıların kilitlenmediği, herkesin birbirini tanıdığı o güvenli mahalle ortamında, dizlerindeki küçük sıyrıklara aldırmadan koşup oynayan o küçük kız çocuğunun heyecanı içimi ısıtıyor.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                En çok da o büyülü Ramazan gecelerini düşlüyorum... İftar sofralarından hemen sonra sokağa fırladığınız, sokak lambalarının sarı ışığı altında arkadaşlarınla sabaha kadar bıkmadan usanmadan oynadığınız o masum zamanları. Yıldızların altında kurduğunuz oyunlar, paylaştığınız çocukluk sırları ve o tükenmek bilmeyen enerjiniz... Babadağ'ın o şefkatli kollarında, hayatın sadece oyunlardan ibaret olduğu o çağlar, kalbindeki o sonsuz sıcaklığın temellerini attı.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Ancak her büyüme hikayesinde olduğu gibi, senin de aşman gereken kendi küçük engellerin vardı. Okul sıralarına oturduğunda o karmaşık sayılar, birbiri ardına dizilen işlemler, yani matematik, başlarda sana hiç de sevimli gelmemişti. Rakamların dünyası, Babadağ'ın sokakları kadar özgür hissettirmiyordu seni.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Fakat ben senin o pes etmeyen, inatçı ve güçlü ruhunu o kadar iyi tanıyorum ki... 8. sınıfa geldiğinde, içindeki o azim ateşi bir anda alevlendi. Zorlukların üzerine cesaretle giden, başarmayı kafasına koyan o kıvırcık saçlı kız, matematiği de dize getirdi.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Verdiğin emeğin karşılığını aldığın gün, Şeniz ve Sezgin'in de göğsünü kabartan en gururlu gündü. <strong class="text-gray-900">Denizli Lisesi</strong>'ni kazandığını öğrendiğiniz o muhteşem an, senin o tatlı çocukluktan, ayakları yere sağlam basan bir genç kızlığa attığın ilk büyük adımdı. O gün elde ettiğin o başarı, yıllar sonra azmine her gün yeniden aşık olacağım kadının ne kadar dirayetli olduğunun en güzel müjdecisiydi.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Bölüm 3: Kalbimin Panzehiri ve İstanbul Hayali</h2>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Denizli Lisesi’nin o tarihi koridorlarında, hayatımın en güzel döneminin başlayacağından habersizce yürüyordum. Ta ki sen o sınıfın kapısından içeri girene kadar... Kendinden emin, o büyüleyici ve havalı duruşunla sınıfa ilk adımını attığın anı dün gibi hatırlıyorum. Yalan yok, o günlerde senin bu fazla havalı hallerine içten içe biraz gıcık olmuştum.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Ama aslında kalbim bana çok tatlı bir oyun oynuyordu; o çocukça gıcık olma hissi, içimde sana karşı çığ gibi büyüyen o gizli, derin hayranlığın maskesinden başka bir şey değildi. Gözlerimizi senden alamıyor, o kıvırcık saçların ardındaki dünyayı deli gibi merak ediyordum. Aramızdaki o sessiz çekim, bir Şubat tatilinde yaptığım küçük bir muziplikle bambaşka bir boyut kazandı. Sosyal medyada karşıma çıkan, arkanda uçsuz bucaksız masmavi bir denizin uzandığı o fotoğrafını gördüm. Altına "Deniz güzelmiş" yazıverdim. Oysa asıl hayran kaldığımın deniz değil, sen olduğunu ikimiz de biliyorduk.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Seni ikna etmek, o güzel kalbinin kapılarını aralamak kolay olmadı elbette. Peşinden az koşmadım... Ama o günlerde seninle tek bir kelime konuşabilmek için verdiğim her çaba, hayatımın en anlamlı yürüyüşüydü.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Ve takvimler <strong class="text-gray-900">23 Mayıs 2014</strong>’ü gösterdiğinde, Forum Çamlık’taki sinema salonuna gittik. "Panzehir" isimli film başlamak üzereydi. Benim göğüs kafesime sığmayan kalbim adeta duracak gibiydi. Tam o anda, bütün cesaretimi toplayıp gözlerinin en derinlerine baktım ve hayatımı sonsuza dek değiştirecek o soruyu fısıldadım: <em class="text-gray-950 font-medium">"Her şeyim olur musun?"</em> Dudaklarından dökülen "Evet" cevabı, ruhumun gerçek panzehiri oldu. Elini ilk kez o karanlık sinema salonunda tuttum.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Bu güzel başlangıcın ardından, önümüzde üniversite sınavı duruyordu. Ama biz artık iki ayrı insan değil, tek bir yürektik. Gözümüzü o büyüleyici şehre, İstanbul’a dikmiştik. Birbirimize duyduğumuz aşk ve inanç gerçeğe dönüştü ve ikimiz de üniversiteyi kazanarak el ele verip yepyeni bir geleceğe uçsuz bucaksız bir yolculuğa çıktık.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Bölüm 4: Yedi Tepeden Kuzeyin Soğuğuna Aşk</h2>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                İstanbul’un o büyülü sokaklarına ilk adımımızı attığımızda, lise sıralarında kurduğumuz o masum hayali artık yaşıyorduk. Marmara Üniversitesi’nin kampüsünde, o meşhur Kafe Bahçe’de baş başa yediğimiz sayısız akşam yemeği, hafızama kazındı. Geceleri uykusuz kalarak yetiştirmeye çalıştığımız o üniversite projeleri, bir fincan kahve eşliğinde izlediğimiz dizilerle attığımız o sıcacık anlar... Her zorluğu seninle aşmak paha biçilemezdi.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                İstanbul'un altını üstüne getirirken rotamızı Karadeniz'in o yemyeşil yaylalarına çevirdik. Sislerin arasında el ele yürüdüğümüz Karadeniz turumuz, hayatın yokuşlarını da birlikte tırmanacağımızın en güzel kanıtıydı. Mezuniyetin ardından iş hayatına adım attık. Çalışarak geçirdiğimiz koskoca bir yılın ardından çıktığımız Güneydoğu Türkiye turunda, Mezopotamya topraklarında güneşin batışını izlerken aşkımızın ne kadar derin olduğunu bir kez daha hissettim.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Ve sonra hayat, bizim için beklenmedik bir senaryo hazırladı: Estonya'dan aldığım o iş teklifi. Alışkın olduğumuz her şeyi arkada bırakıp tamamen yabancı bir coğrafyaya gitmek büyük bir cesaretti. Ama benim en büyük cesaretim her zaman sendin. Bavullarımıza hayallerimizi koyup yola çıktık.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Kuzeyin o dondurucu soğuğunda, yepyeni bir ülkede sıfırdan bir düzen kurduk. Dışarısı ne kadar soğuk olursa olsun, bizim kurduğumuz o ev senin sıcaklığınla her zaman dünyanın en güvenli, en ılık limanıydı. Estonya'dan yola çıkıp sayısız Avrupa ülkesini seninle keşfetmek hayatımın en unutulmaz serüveniydi.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Tüm bu maceraların ardından, dünyayı asıl güzelleştiren o muhteşem haber geldi... İçinde yepyeni, minicik bir hayat yeşeriyordu. Kuzeyin o buz gibi havasını bahara çeviren mucize; anne ve baba olacağımız gerçeği. Çocuğumuzun bizim doğup büyüdüğümüz topraklarda büyümesi gerektiğine karar verdik ve kalbimizde sayısız Avrupa hatırasıyla evimize, Türkiye'ye geri döndük.
+            </p>
+        </div>
+
+        <div class="page-data">
+            <h2 class="text-lg font-bold text-gray-900 border-b pb-2 mb-6 tracking-wide uppercase">Bölüm 5: Akay'la Büyüyen Dünyamız ve Üç Kişilik Rüyalar</h2>
+            <p class="drop-cap text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Türkiye'ye dönüşümüzün ardından takvimler <strong class="text-gray-900">10 Mayıs 2025</strong>'i gösterdiğinde, o beklenen mucize gerçekleşti ve hayatımızın en eşsiz şarkısı çalmaya başladı. Akayımız dünyaya gözlerini açtığında, zaman adeta durdu. Onu ilk kez kucağımıza aldığımız o an, bugüne kadar hissettiğim tüm duyguların ötesinde, bambaşka bir evrenin kapılarını araladı bize.
+            </p>
+            <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                Sen, lise koridorlarında aşık olduğum o havalı kızdan, Estonya'nın dondurucu soğuğunda bile içimi ısıtan o cesur yol arkadaşından, dünyanın en şefkatli annesine dönüştün. Geceleri uykusuz kaldığında bile yüzünden eksilmeyen o tatlı tebessümün, Akay'a bakarken gözlerinde parlayan o sevgiyi görmek sana olan aşkımı her geçen gün daha da büyütüyor. Biz seninle yıkılmaz ve şahane bir aile olduk.
+            </p>
+        </div>
+
+        <div class="page-data flex flex-col justify-between h-full">
+            <div>
+                <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                    Akay’ın gelişiyle seyahat tutkumuz asla yavaşlamadı; aksine onun minik adımlarıyla daha da büyük bir anlam kazandı. İngiltere'nin tarihi sokaklarında bebek arabasını sürerken, İrlanda'nın uçsuz bucaksız yeşilliklerinde birlikte nefes aldık. Danimarka'nın huzurlu havasını içimize çekip, Mısır'ın sıcak topraklarında sımsıcak aile anılarımıza yepyeni sayfalar ekledik. Dünyanın neresinde olursak olalım, senin ve oğlumuzun olduğu her yer benim için tek ve gerçek yuvaya dönüştü.
+                </p>
+                <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                    Şimdi önümüzde keşfedilmeyi bekleyen yepyeni rotalar var... Kopenhag'ın renkli limanlarından Barselona'nın güneşli meydanlarına, Münih'in tarihi dokusundan o çok sevdiğimiz Tallinn'in kar altındaki sokaklarına kadar uzanan harika maceralar bizi bekliyor.
+                </p>
+                <p class="text-justify leading-relaxed text-gray-700 mb-4 text-[15px]">
+                    5 Haziran 1998, saat 15:33'te Denizli'de bir Tofaş'ın arka koltuğunda başlayan bu hikaye, bugün benim hayatımın en büyük mucizesine dönüştü. İyi ki doğdun sevgilim, iyi ki Akay'ımızın biricik annesi oldun. Seni dünyalardan çok seviyorum.
+                </p>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <div class="flex justify-center items-center mb-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300 mx-1"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-gray-500 mx-1"></span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-gray-300 mx-1"></span>
+                </div>
+                <h2 class="text-xl font-bold tracking-widest text-gray-900 uppercase font-sans">- SON -</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const pages = document.querySelectorAll('.page-data');
+        let currentPageIndex = 0;
+
+        function renderBook() {
+            const isMobile = window.innerWidth < 768; // Tailwind md sınırı
+            const leftContent = document.getElementById('left-content');
+            const rightContent = document.getElementById('right-content');
+            const leftPageNum = document.getElementById('left-page-num');
+            const rightPageNum = document.getElementById('right-page-num');
+            const rightContainer = document.getElementById('right-page-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressIndicator = document.getElementById('progress-indicator');
+
+            if (isMobile) {
+                // MOBİL GÖRÜNÜM: Tek Sayfa Akışı
+                leftContent.innerHTML = pages[currentPageIndex] ? pages[currentPageIndex].innerHTML : '';
+                leftPageNum.innerText = currentPageIndex + 1;
+                rightContainer.classList.add('hidden');
+                
+                // Buton durumları
+                prevBtn.disabled = currentPageIndex === 0;
+                nextBtn.disabled = currentPageIndex >= pages.length - 1;
+                
+                // İlerleme göstergesi
+                progressIndicator.innerText = `${currentPageIndex + 1} / ${pages.length}`;
+            } else {
+                // MASAÜSTÜ GÖRÜNÜM: Çift Sayfa Akışı (0-1, 2-3, 4-5...)
+                let leftIndex = currentPageIndex % 2 === 0 ? currentPageIndex : currentPageIndex - 1;
+                let rightIndex = leftIndex + 1;
+
+                // Sol Sayfa Çıktısı
+                leftContent.innerHTML = pages[leftIndex] ? pages[leftIndex].innerHTML : '';
+                leftPageNum.innerText = leftIndex + 1;
+
+                // Sağ Sayfa Çıktısı
+                if (pages[rightIndex]) {
+                    rightContent.innerHTML = pages[rightIndex].innerHTML;
+                    rightPageNum.innerText = rightIndex + 1;
+                    rightContainer.classList.remove('invisible');
+                } else {
+                    rightContent.innerHTML = '';
+                    rightPageNum.innerText = '';
+                    rightContainer.classList.add('invisible'); 
+                }
+                
+                rightContainer.classList.remove('hidden');
+                rightContainer.classList.add('flex');
+
+                // Buton durumları
+                prevBtn.disabled = leftIndex === 0;
+                nextBtn.disabled = rightIndex >= pages.length - 1;
+                
+                // İlerleme göstergesi
+                progressIndicator.innerText = `${leftIndex + 1}-${rightIndex + 1} / ${pages.length}`;
+            }
+        }
+
+        function changePage(step) {
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                currentPageIndex += step;
+            } else {
+                currentPageIndex += (step * 2);
+            }
+            
+            // Sınır kontrolleri
+            if (currentPageIndex < 0) currentPageIndex = 0;
+            if (currentPageIndex >= pages.length) currentPageIndex = pages.length - 1;
+
+            renderBook();
+            
+            // Sayfa çevrildiğinde hafifçe yukarı odaklanma efekti
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Ekran boyutu değiştiğinde sayfa indeks düzenini koru
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768 && currentPageIndex % 2 !== 0) {
+                currentPageIndex -= 1; 
+            }
+            renderBook();
+        });
+
+        // Kitabı ilk açılışta yükle
+        renderBook();
+    </script>
+</body>
+</html>
